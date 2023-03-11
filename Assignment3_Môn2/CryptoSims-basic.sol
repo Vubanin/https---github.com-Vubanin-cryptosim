@@ -133,10 +133,6 @@ contract TheFunixCryptoSim is ERC721, Ownable  {
             attributes.hairstyle = sireAttr.hairstyle;
             attributes.outfit = (matronAttr.outfit + sireAttr.outfit) % 32;
             attributes.accessory = (matronAttr.accessory + sireAttr.accessory + 31) % 32;
-
-
-
-            
         }
 
         // END CODE HERE
