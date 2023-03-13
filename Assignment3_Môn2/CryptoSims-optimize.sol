@@ -16,7 +16,7 @@ contract TheFunixCryptoSim is ERC721, Ownable  {
 	
     // *** START Code here***
     
-    constructor() ERC721("", "") {		
+    constructor() ERC721("TheFunixCryptoSims", "FCS") {		
         createGenesis();
     }
     
@@ -84,7 +84,7 @@ contract TheFunixCryptoSim is ERC721, Ownable  {
         uint8 x = matronAttr.hiddenGenes;
         // START Code here
         if (matronAttr.hiddenGenes == sireAttr.hiddenGenes) {
-            
+            x = (matronAttr.hiddenGenes * sireAttr.hiddenGenes + 3) % 4; 
         } else if (x < sireAttr.hiddenGenes) {
             x = sireAttr.hiddenGenes;
         }
@@ -106,20 +106,33 @@ contract TheFunixCryptoSim is ERC721, Ownable  {
         attributes.generation = matronAttr.generation + 1;
         if (sireAttr.generation > matronAttr.generation) {
             // START CODE HERE
-            
+            attributes.generation = sireAttr.generation + 1;
             // END CODE HERE
         }
 
         // TASK #4: Calculate remaining atrributes
         // START CODE HERE
+        attributes.body = (sireAttr.body * matronAttr.body + 3) % 4;
         if (x==0) {
-
+            attributes.eye = sireAttr.eye;
+            attributes.hairstyle = matronAttr.hairstyle;
+            attributes.outfit = (matronAttr.outfit + sireAttr.outfit + 1) % 32;
+            attributes.accessory = (matronAttr.accessory + sireAttr.accessory) % 32;
         } else if (x==1) {
-
+            attributes.eye = matronAttr.eye;
+            attributes.hairstyle = (sireAttr.hairstyle - matronAttr.hairstyle + 128) % 128;
+            attributes.outfit = (matronAttr.outfit + sireAttr.outfit + 1) % 32;
+            attributes.accessory = (matronAttr.accessory + sireAttr.accessory) % 32;
         } else if (x==2) {
-
+            attributes.eye = (sireAttr.eye + matronAttr.eye) % 8;
+            attributes.hairstyle = (sireAttr.hairstyle - matronAttr.hairstyle + 128) % 128;
+            attributes.outfit = (matronAttr.outfit + sireAttr.outfit) % 32;
+            attributes.accessory = (matronAttr.accessory + sireAttr.accessory + 31) % 32;
         } else if  (x==3) {
-
+            attributes.eye = (sireAttr.eye + matronAttr.eye) % 8;
+            attributes.hairstyle = sireAttr.hairstyle;
+            attributes.outfit = (matronAttr.outfit + sireAttr.outfit) % 32;
+            attributes.accessory = (matronAttr.accessory + sireAttr.accessory + 31) % 32;
         }
 
         // END CODE HERE
@@ -177,7 +190,7 @@ contract TheFunixCryptoSim is ERC721, Ownable  {
     function createGenesis() internal {
         // READMORE: There is better way to init create Genesis without encoding
         // TASK #7: Implement without encoding
-
+        
         // START CODE HERE
             
         
@@ -281,7 +294,6 @@ contract TheFunixCryptoSim is ERC721, Ownable  {
 
         // TASK #5: Encode attributes into uint32
         // START CODE HERE
-
         // END CODE HERE
 
         return genes;
@@ -300,7 +312,7 @@ contract TheFunixCryptoSim is ERC721, Ownable  {
 
         // TASK #6: Decode uint32 gene to attributes
         // START CODE HERE
-
+        attributes = uint32(genes);
         // END CODE HERE
 
         return attributes;
