@@ -286,7 +286,7 @@ contract TheFunixCryptoSim is ERC721, Ownable {
 
         // TASK #5: Encode attributes into uint32
         // START CODE HERE
-        gens =
+        genes =
             (uint32(attributes.generation) << 24) |
             (uint32(attributes.hiddenGenes) << 22) |
             (uint32(attributes.body) << 20) |
