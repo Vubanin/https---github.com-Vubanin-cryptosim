@@ -104,38 +104,26 @@ contract TheFunixCryptoSim is ERC721, Ownable {
         // TASK #4: Calculate remaining atrributes
         // START CODE HERE
         attributes.body = (sireAttr.body * matronAttr.body + 3) % 4;
-        if (x == 0) {
+        if (x==0) {
             attributes.eye = sireAttr.eye;
             attributes.hairstyle = matronAttr.hairstyle;
             attributes.outfit = (matronAttr.outfit + sireAttr.outfit + 1) % 32;
-            attributes.accessory =
-                (matronAttr.accessory + sireAttr.accessory) %
-                32;
-        } else if (x == 1) {
+            attributes.accessory = (matronAttr.accessory + sireAttr.accessory) % 32;
+        } else if (x==1) {
             attributes.eye = matronAttr.eye;
-            attributes.hairstyle =
-                (sireAttr.hairstyle - matronAttr.hairstyle + 128) %
-                128;
+            attributes.hairstyle = (sireAttr.hairstyle - matronAttr.hairstyle + 128) % 128;
             attributes.outfit = (matronAttr.outfit + sireAttr.outfit + 1) % 32;
-            attributes.accessory =
-                (matronAttr.accessory + sireAttr.accessory) %
-                32;
-        } else if (x == 2) {
+            attributes.accessory = (matronAttr.accessory + sireAttr.accessory) % 32;
+        } else if (x==2) {
             attributes.eye = (sireAttr.eye + matronAttr.eye) % 8;
-            attributes.hairstyle =
-                (sireAttr.hairstyle - matronAttr.hairstyle + 128) %
-                128;
+            attributes.hairstyle = (sireAttr.hairstyle - matronAttr.hairstyle + 128) % 128;
             attributes.outfit = (matronAttr.outfit + sireAttr.outfit) % 32;
-            attributes.accessory =
-                (matronAttr.accessory + sireAttr.accessory + 31) %
-                32;
-        } else if (x == 3) {
+            attributes.accessory = (matronAttr.accessory + sireAttr.accessory + 31) % 32;
+        } else if  (x==3) {
             attributes.eye = (sireAttr.eye + matronAttr.eye) % 8;
             attributes.hairstyle = sireAttr.hairstyle;
             attributes.outfit = (matronAttr.outfit + sireAttr.outfit) % 32;
-            attributes.accessory =
-                (matronAttr.accessory + sireAttr.accessory + 31) %
-                32;
+            attributes.accessory = (matronAttr.accessory + sireAttr.accessory + 31) % 32;
         }
 
         // END CODE HERE
@@ -327,12 +315,12 @@ contract TheFunixCryptoSim is ERC721, Ownable {
         // TASK #6: Decode uint32 gene to attributes
         // START CODE HERE
         attributes.generation = uint8(genes >> 24);
-        attributes.hiddenGenes = uint8((genes >> 22) & 0x04);
-        attributes.body = uint8((genes >> 20) & 0x04);
-        attributes.eye = uint8((genes >> 17) & 0x08);
-        attributes.hairstyle = uint8((genes >> 10) & 0x80);
-        attributes.outfit = uint8((genes >> 5) & 0x20);
-        attributes.accessory = uint8(genes);
+        attributes.hiddenGenes = uint8((genes >> 22) & 3);
+        attributes.body = uint8((genes >> 20) & 3);
+        attributes.eye = uint8((genes >> 17) & 7);
+        attributes.hairstyle = uint8((genes >> 10) & 127);
+        attributes.outfit = uint8((genes >> 5) & 31);
+        attributes.accessory = uint8(genes & 31);
         // END CODE HERE
 
         return attributes;
